@@ -7,37 +7,32 @@ typedef struct list{
 } celula;
 
 
-celula *inserir(celula *fila, int dado){
-    celula *novo = malloc(sizeof(celula));
-    celula *primeiro ;
-    celula *ultimo ;
-    primeiro = NULL;
-    ultimo = NULL;
+void inserir(celula **fila, int dado){
+    celula *ultimo, *primeiro, *novo = malloc(sizeof(celula));
     novo->num = dado;
-    novo->prox = fila->prox;
-    fila->prox = novo;
-        if (primeiro == NULL){
-            primeiro = novo;
-        }
-        else{
-            ultimo->prox = novo;
-        }
+    novo->prox = NULL;
+    if (*fila == NULL){
+        *fila = novo;
+        primeiro = novo;
         ultimo = novo;
-}
-
-int remover(celula *primeiro){ 
-    int x = 0;
-    if(primeiro != NULL){
-        celula *apagar = NULL;
-        apagar = primeiro->prox;
-        x = apagar->num;
-        primeiro -> prox = apagar->prox;
-        free(apagar);
+    }else{
+        ultimo = *fila;
+        while (ultimo ->prox)
+            ultimo = ultimo ->prox;
+        ultimo->prox = novo;
+        }
+    }
+celula *remover(celula **primeiro){ 
+    celula *apagar = NULL;
+    if(*primeiro != NULL){
+        apagar = *primeiro;
+        *primeiro = apagar->prox;
     }
     else{
-        printf("\nlista vazia\n");
+        printf("\n Fila vazia\n");
     }
-    return x;
+    return apagar;
+    free(apagar);
 }
 
 void PRINT(celula *lista) {
@@ -48,16 +43,16 @@ void PRINT(celula *lista) {
 }
 
 int main(){
-celula *top = NULL;
-top = malloc(sizeof(celula));
-top->prox = NULL;
-top->num = 0;
-inserir(top, 44);
-inserir(top, 33);
-inserir(top, 55);
-inserir(top, 77);
-remover(top);
-PRINT(top);
+celula *lista =NULL ;
+inserir(&lista, 33);
+inserir(&lista, 44);
+inserir(&lista, 55);
+inserir(&lista, 66);
+inserir(&lista, 77);
+remover(&lista);
+remover(&lista);
+remover(&lista);
+PRINT(lista);
 return 0;
 }
 
