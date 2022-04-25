@@ -22,16 +22,18 @@ void inserir(celula **fila, int dado){
         ultimo->prox = novo;
         }
     }
-celula *remover(celula **primeiro){ 
+int remover(celula **primeiro){ 
+    int x = 0;
     celula *apagar = NULL;
     if(*primeiro != NULL){
         apagar = *primeiro;
         *primeiro = apagar->prox;
+        x = apagar->num;
     }
     else{
         printf("\n Fila vazia\n");
     }
-    return apagar;
+    return x;
     free(apagar);
 }
 
@@ -49,8 +51,6 @@ inserir(&lista, 44);
 inserir(&lista, 55);
 inserir(&lista, 66);
 inserir(&lista, 77);
-remover(&lista);
-remover(&lista);
 remover(&lista);
 PRINT(lista);
 return 0;
